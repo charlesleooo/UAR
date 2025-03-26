@@ -231,6 +231,24 @@
         </form>
     </div>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Form Submitted Successfully!</h3>
+                <p class="text-sm text-gray-500 mb-4" id="modalMessage"></p>
+                <button type="button" onclick="closeModal()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const businessUnitDepartments = {
@@ -465,9 +483,35 @@
                     }
                 }
 
-                // If all validations pass, submit the form
-                this.submit();
+                // Submit form using fetch
+                const formData = new FormData(this);
+                fetch('submit.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success modal
+                        document.getElementById('modalMessage').textContent = data.message;
+                        document.getElementById('successModal').classList.remove('hidden');
+                        // Reset form
+                        form.reset();
+                        resetFormSections();
+                    } else {
+                        alert(data.message || 'An error occurred while submitting the form.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the form.');
+                });
             });
+
+            // Modal close function
+            window.closeModal = function() {
+                document.getElementById('successModal').classList.add('hidden');
+            }
         });
     </script>
 </body>
