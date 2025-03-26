@@ -24,7 +24,8 @@ try {
             'email',
             'contact_number',
             'justification',
-            'access_type'
+            'access_type',
+            'duration_type'
         ];
 
         $errors = [];
@@ -39,22 +40,26 @@ try {
             $errors[] = 'Invalid email format';
         }
 
+        // Validate duration type and dates
+        if (!empty($_POST['duration_type'])) {
+            if ($_POST['duration_type'] === 'temporary') {
+                if (empty($_POST['start_date']) || empty($_POST['end_date'])) {
+                    $errors[] = 'Start date and end date are required for temporary access';
+                } else {
+                    $start_date = strtotime($_POST['start_date']);
+                    $end_date = strtotime($_POST['end_date']);
+                    if ($start_date > $end_date) {
+                        $errors[] = 'End date must be after start date';
+                    }
+                }
+            }
+        }
+
         // Additional validation for System Application type
         if ($_POST['access_type'] === 'system_application') {
             // Validate system type selection
             if (empty($_POST['system_type'])) {
                 $errors[] = 'At least one System/Application Type must be selected';
-            }
-
-            // Validate duration type
-            if (empty($_POST['duration_type'])) {
-                $errors[] = 'Access Duration is required for System Application';
-            } else {
-                if ($_POST['duration_type'] === 'temporary') {
-                    if (empty($_POST['start_date']) || empty($_POST['end_date'])) {
-                        $errors[] = 'Start date and end date are required for temporary access';
-                    }
-                }
             }
         }
 
@@ -86,7 +91,7 @@ try {
                     'system_type' => null,
                     'other_system_type' => null,
                     'role_access_type' => null,
-                    'duration_type' => null,
+                    'duration_type' => isset($_POST['duration_type']) ? $_POST['duration_type'] : null,
                     'start_date' => null,
                     'end_date' => null
                 ];
@@ -96,11 +101,13 @@ try {
                     $form_data['system_type'] = isset($_POST['system_type']) ? implode(',', $_POST['system_type']) : null;
                     $form_data['other_system_type'] = isset($_POST['other_system_type']) ? $_POST['other_system_type'] : null;
                     $form_data['role_access_type'] = isset($_POST['role_access_type']) ? $_POST['role_access_type'] : null;
-                    $form_data['duration_type'] = isset($_POST['duration_type']) ? $_POST['duration_type'] : null;
-                    
-                    if (isset($_POST['duration_type']) && $_POST['duration_type'] === 'temporary') {
-                        $form_data['start_date'] = !empty($_POST['start_date']) ? $_POST['start_date'] : null;
-                        $form_data['end_date'] = !empty($_POST['end_date']) ? $_POST['end_date'] : null;
+                }
+
+                // Handle duration type and dates for all access types
+                if (isset($_POST['duration_type'])) {
+                    if ($_POST['duration_type'] === 'temporary' && !empty($_POST['start_date']) && !empty($_POST['end_date'])) {
+                        $form_data['start_date'] = $_POST['start_date'];
+                        $form_data['end_date'] = $_POST['end_date'];
                     }
                 }
 

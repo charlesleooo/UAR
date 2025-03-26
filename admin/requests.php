@@ -198,77 +198,96 @@ try {
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Request Number</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requestor</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Unit</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access Type</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submission Date</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <?php foreach ($requests as $request): ?>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900"><?php echo htmlspecialchars($request['access_request_number']); ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900"><?php echo htmlspecialchars($request['requestor_name']); ?></div>
-                                        <div class="text-sm text-gray-500"><?php echo htmlspecialchars($request['email']); ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900"><?php echo htmlspecialchars($request['business_unit']); ?></div>
-                                        <div class="text-sm text-gray-500"><?php echo htmlspecialchars($request['department']); ?></div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900"><?php echo htmlspecialchars($request['access_type']); ?></div>
-                                        <?php if ($request['access_type'] === 'system_application'): ?>
-                                            <div class="text-sm text-gray-500"><?php echo htmlspecialchars($request['system_type']); ?></div>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            <?php
-                                            switch ($request['status']) {
-                                                case 'pending':
-                                                    echo 'bg-yellow-100 text-yellow-800';
-                                                    break;
-                                                case 'approved':
-                                                    echo 'bg-green-100 text-green-800';
-                                                    break;
-                                                case 'rejected':
-                                                    echo 'bg-red-100 text-red-800';
-                                                    break;
-                                            }
-                                            ?>">
-                                            <?php echo ucfirst($request['status']); ?>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <?php echo date('M d, Y H:i', strtotime($request['submission_date'])); ?>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <?php if ($request['status'] === 'pending'): ?>
-                                            <button onclick="showActionModal(<?php echo $request['id']; ?>, 'approve')" class="text-primary hover:text-primary-dark mr-2">
-                                                <i class='bx bx-check text-xl'></i>
-                                            </button>
-                                            <button onclick="showActionModal(<?php echo $request['id']; ?>, 'decline')" class="text-red-600 hover:text-red-700">
-                                                <i class='bx bx-x text-xl'></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button onclick="showDetailsModal(<?php echo $request['id']; ?>)" class="text-gray-600 hover:text-gray-900">
-                                                <i class='bx bx-info-circle text-xl'></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        <div class="inline-block min-w-full">
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Request No.</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Requestor</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Business Unit</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Access Type</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Status</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Date</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <?php foreach ($requests as $request): ?>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-gray-900"><?php echo htmlspecialchars($request['access_request_number']); ?></div>
+                                            </td>
+                                            <td class="px-4 py-4">
+                                                <div class="text-sm font-medium text-gray-900 truncate"><?php echo htmlspecialchars($request['requestor_name']); ?></div>
+                                                <div class="text-sm text-gray-500 truncate"><?php echo htmlspecialchars($request['email']); ?></div>
+                                            </td>
+                                            <td class="px-4 py-4">
+                                                <div class="text-sm text-gray-900 truncate"><?php echo htmlspecialchars($request['business_unit']); ?></div>
+                                                <div class="text-sm text-gray-500 truncate"><?php echo htmlspecialchars($request['department']); ?></div>
+                                            </td>
+                                            <td class="px-4 py-4">
+                                                <div class="text-sm text-gray-900 truncate"><?php echo htmlspecialchars($request['access_type']); ?></div>
+                                                <?php if ($request['access_type'] === 'system_application'): ?>
+                                                    <div class="text-sm text-gray-500 truncate"><?php echo htmlspecialchars($request['system_type']); ?></div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                    <?php
+                                                    switch ($request['status']) {
+                                                        case 'pending':
+                                                            echo 'bg-yellow-100 text-yellow-800';
+                                                            break;
+                                                        case 'approved':
+                                                            echo 'bg-green-100 text-green-800';
+                                                            break;
+                                                        case 'rejected':
+                                                            echo 'bg-red-100 text-red-800';
+                                                            break;
+                                                    }
+                                                    ?>">
+                                                    <?php echo ucfirst($request['status']); ?>
+                                                </span>
+                                            </td>
+                                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <?php echo date('M d, Y', strtotime($request['submission_date'])); ?>
+                                            </td>
+                                            <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                                                <?php if ($request['status'] === 'pending'): ?>
+                                                    <div class="flex items-center justify-center space-x-2">
+                                                        <button onclick="showDetailsModal(<?php echo $request['id']; ?>)" 
+                                                                class="flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors">
+                                                            <i class='bx bx-info-circle text-xl'></i>
+                                                            <span class="ml-1">View</span>
+                                                        </button>
+                                                        <button onclick="showActionModal(<?php echo $request['id']; ?>, 'approve')" 
+                                                                class="flex items-center px-3 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors">
+                                                            <i class='bx bx-check text-xl'></i>
+                                                            <span class="ml-1">Approve</span>
+                                                        </button>
+                                                        <button onclick="showActionModal(<?php echo $request['id']; ?>, 'decline')" 
+                                                                class="flex items-center px-3 py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors">
+                                                            <i class='bx bx-x text-xl'></i>
+                                                            <span class="ml-1">Decline</span>
+                                                        </button>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <div class="flex items-center justify-center">
+                                                        <button onclick="showDetailsModal(<?php echo $request['id']; ?>)" 
+                                                                class="flex items-center px-3 py-1 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                                                            <i class='bx bx-info-circle text-xl'></i>
+                                                            <span class="ml-1">View Details</span>
+                                                        </button>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,6 +321,102 @@ try {
         </div>
     </div>
 
+    <!-- Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl max-w-3xl w-full mx-auto shadow-xl">
+                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800">Access Request Details</h3>
+                    <button onclick="hideDetailsModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class='bx bx-x text-2xl'></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-medium text-gray-700 mb-4">Request Information</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-sm text-gray-500">Request Number</p>
+                                    <p id="detail_request_number" class="text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Status</p>
+                                    <p id="detail_status" class=""></p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Submission Date</p>
+                                    <p id="detail_submission_date" class="text-gray-900"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 mb-4">Requestor Information</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-sm text-gray-500">Name</p>
+                                    <p id="detail_requestor_name" class="text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Email</p>
+                                    <p id="detail_email" class="text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Contact Number</p>
+                                    <p id="detail_contact" class="text-gray-900"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-medium text-gray-700 mb-4">Access Details</h4>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-sm text-gray-500">Business Unit</p>
+                                <p id="detail_business_unit" class="text-gray-900"></p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Department</p>
+                                <p id="detail_department" class="text-gray-900"></p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Access Type</p>
+                                <p id="detail_access_type" class="text-gray-900"></p>
+                            </div>
+                            <div id="detail_system_type_container" class="hidden">
+                                <p class="text-sm text-gray-500">System Type</p>
+                                <p id="detail_system_type" class="text-gray-900"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-medium text-gray-700 mb-4">Duration</h4>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-sm text-gray-500">Duration Type</p>
+                                <p id="detail_duration_type" class="text-gray-900"></p>
+                            </div>
+                            <div id="detail_dates_container">
+                                <p class="text-sm text-gray-500">Duration Period</p>
+                                <p id="detail_duration_dates" class="text-gray-900"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-medium text-gray-700 mb-4">Additional Information</h4>
+                        <div>
+                            <p class="text-sm text-gray-500">Justification</p>
+                            <p id="detail_justification" class="text-gray-900 whitespace-pre-line"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function showActionModal(requestId, action) {
             document.getElementById('request_id').value = requestId;
@@ -319,6 +434,97 @@ try {
         document.getElementById('actionModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideActionModal();
+            }
+        });
+
+        function showDetailsModal(requestId) {
+            // Show loading state
+            document.getElementById('detailsModal').classList.remove('hidden');
+            
+            // Fetch request details via AJAX
+            fetch('get_request_details.php?id=' + requestId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Update modal with request details
+                    document.getElementById('detail_request_number').textContent = data.access_request_number;
+                    document.getElementById('detail_requestor_name').textContent = data.requestor_name;
+                    document.getElementById('detail_email').textContent = data.email;
+                    document.getElementById('detail_contact').textContent = data.contact_number;
+                    document.getElementById('detail_business_unit').textContent = data.business_unit;
+                    document.getElementById('detail_department').textContent = data.department;
+                    document.getElementById('detail_access_type').textContent = data.access_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    document.getElementById('detail_justification').textContent = data.justification;
+                    
+                    // Set status with appropriate color
+                    const statusElement = document.getElementById('detail_status');
+                    statusElement.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                    statusElement.className = `inline-flex px-2 text-sm font-semibold rounded-full ${
+                        data.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                        data.status === 'approved' ? 'bg-green-100 text-green-800' :
+                        'bg-red-100 text-red-800'
+                    }`;
+
+                    // Format and set submission date
+                    const submissionDate = new Date(data.submission_date);
+                    document.getElementById('detail_submission_date').textContent = submissionDate.toLocaleString();
+
+                    // Handle system type for system_application access type
+                    const systemTypeContainer = document.getElementById('detail_system_type_container');
+                    if (data.access_type === 'system_application' && data.system_type) {
+                        systemTypeContainer.classList.remove('hidden');
+                        document.getElementById('detail_system_type').textContent = data.system_type;
+                    } else {
+                        systemTypeContainer.classList.add('hidden');
+                    }
+
+                    // Handle duration type and dates
+                    const durationTypeElem = document.getElementById('detail_duration_type');
+                    const datesContainer = document.getElementById('detail_dates_container');
+                    const durationDatesElem = document.getElementById('detail_duration_dates');
+
+                    if (data.duration_type) {
+                        durationTypeElem.textContent = data.duration_type.charAt(0).toUpperCase() + data.duration_type.slice(1);
+                        
+                        if (data.duration_type === 'temporary' && data.start_date && data.end_date) {
+                            datesContainer.style.display = 'block';
+                            const startDate = new Date(data.start_date).toLocaleDateString();
+                            const endDate = new Date(data.end_date).toLocaleDateString();
+                            durationDatesElem.textContent = `${startDate} to ${endDate}`;
+                        } else {
+                            datesContainer.style.display = 'none';
+                        }
+                    } else {
+                        durationTypeElem.textContent = 'Not specified';
+                        datesContainer.style.display = 'none';
+                    }
+
+                    // Handle review information
+                    const reviewDetails = document.getElementById('review_details');
+                    if (data.reviewed_by) {
+                        reviewDetails.classList.remove('hidden');
+                        document.getElementById('detail_reviewed_by').textContent = data.reviewed_by_name || 'Unknown';
+                        document.getElementById('detail_review_date').textContent = new Date(data.review_date).toLocaleString();
+                        document.getElementById('detail_review_notes').textContent = data.review_notes || 'No notes provided';
+                    } else {
+                        reviewDetails.classList.add('hidden');
+                    }
+                })
+
+        }
+
+        function hideDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        // Close details modal when clicking outside
+        document.getElementById('detailsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideDetailsModal();
             }
         });
     </script>
