@@ -54,21 +54,21 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">No. of Access Request: *</label>
+                    <label class="block text-sm font-medium text-gray-700">No. of Access Request:</label>
                     <input type="number" name="access_request_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Department: *</label>
+                    <label class="block text-sm font-medium text-gray-700">Department:</label>
                     <select name="department" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="">Select Department</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email Add: *</label>
+                    <label class="block text-sm font-medium text-gray-700">Email Add:</label>
                     <input type="email" name="email" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Contact No.: *</label>
+                    <label class="block text-sm font-medium text-gray-700">Contact No.:</label>
                     <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     pattern="\d{11}" maxlength="11" minlength="11"
                     title="Phone number must be exactly 11 digits long">
@@ -77,7 +77,7 @@
 
              <!-- Access Types -->
              <div class="space-y-4">
-                <h2 class="text-lg font-medium">Access Type: *</h2>
+                <h2 class="text-lg font-medium">Access Type:</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <label class="flex items-center space-x-2">
                         <input type="radio" name="access_type" value="system_application" class="text-blue-600 w-5 h-5" required>
@@ -208,7 +208,7 @@
 
             <!-- Access Duration -->
             <div class="space-y-4">
-                <h2 class="text-lg font-medium">Access Duration: *</h2>
+                <h2 class="text-lg font-medium">Access Duration:</h2>
                 <div class="space-y-4">
                     <label class="flex items-center space-x-2">
                         <input type="radio" name="duration_type" value="permanent" class="text-blue-600 w-5 h-5" required>
@@ -234,7 +234,7 @@
 
             <!-- Justification -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Justification for access request: *</label>
+                <label class="block text-sm font-medium text-black-850">Justification for Access Request:</label>
                 <textarea name="justification" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
             </div>
 
