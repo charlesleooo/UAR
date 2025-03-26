@@ -15,6 +15,11 @@
 <body class="bg-gray-100 p-6">
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-2xl font-bold text-center mb-6">USER ACCESS REQUEST FORM</h1>
+        
+        <form action="submit.php" method="POST" id="accessRequestForm" class="space-y-6">
+            <div class="bg-yellow-50 p-3 rounded mb-4">
+                <p class="text-sm text-yellow-700">Note: Fields with * are REQUIRED to be filled up.</p>
+            </div>
 
             <!-- Requestor Information -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -253,7 +258,7 @@
                     'TH - CLEARING',
                     'TILAPIA HATCHERY (TH)',
                     'CATFISH GROW-OUT',
-                    'SPECIAL IMPORTATION/TRADING',
+                    'SPECIAL IMPORTATION/TRADING'
                 ],
                 'ALDEV': [
                     'ALD Cattle',
@@ -261,19 +266,19 @@
                     'ALD Engineering',
                     'ALD Operations Services',
                     'ALD Technical Services',
-                    'ALD-PROD PLANNING',
+                    'ALD-PROD PLANNING'
                 ],
                 'ARC': [
                     'ARC - NURSERY',
                     'ARC Engineering',
                     'ARC Growout',
-                    'Administrative services',
+                    'Administrative services'
                 ],
                 'FHI': [
                     'FIELDS',
                     'SELLING & MARKETING DEPARTMENT',
                     'OPERATIONS DEPARTMENT',
-                    'OTHER SPECIE DEPARTMENT',
+                    'OTHER SPECIE DEPARTMENT'
                 ],
                 'SACI': [
                     'ALDEVINCO-AGRI',
@@ -289,7 +294,7 @@
                     'SBSTG',
                     'G3 AQUAVENTURES INC',
                     'AAC',
-                    'VARIOUS AFFILIATES',
+                    'VARIOUS AFFILIATES'
                 ],
                 'SAVI': [
                     'SCCI',
@@ -304,7 +309,7 @@
                     'TSD Agri',
                     'G&A - Distribution',
                     'OOM',
-                    'Conal Corporation',
+                    'Conal Corporation'
                 ],
                 'SCCI': [
                     'SCC Banana-Lanton',
@@ -312,14 +317,14 @@
                     'SCC Engineering',
                     'SCC Pineapple',
                     'SCC Technical Services',
-                    'SCCI Operations Services',
+                    'SCCI Operations Services'
                 ],
                 'SFC': [
                     'AGRI-ENGINEERING',
                     'AGRI-OPERATIONS SERVICES',
                     'AGRI-PINEAPPLE OPERATIONS',
-                    'FIELD OVERHEAD',
-                ]
+                    'FIELD OVERHEAD'
+                ],
 
             };
 
@@ -396,12 +401,13 @@
                 }
             });
 
-            // Handle System Application section visibility
+            // Handle Access Type selection
             accessTypeInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     resetFormSections();
                     if (this.value === 'system_application') {
                         systemApplicationSection.classList.remove('hidden');
+                    } else if (this.value === 'role_access') {
                         roleAccessSection.classList.remove('hidden');
                     }
                 });
