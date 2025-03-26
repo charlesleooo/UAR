@@ -20,7 +20,6 @@ try {
         $required_fields = [
             'requestor_name',
             'business_unit',
-            'access_request_number',
             'department',
             'email',
             'contact_number',
@@ -62,11 +61,21 @@ try {
         // If no errors, process the form
         if (empty($errors)) {
             try {
+                // Generate the next request number
+                $year = date('Y');
+                $sql = "SELECT MAX(CAST(SUBSTRING_INDEX(access_request_number, '-', -1) AS UNSIGNED)) as max_num 
+                        FROM access_requests 
+                        WHERE access_request_number LIKE 'REQ$year-%'";
+                $stmt = $pdo->query($sql);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $next_num = ($result['max_num'] ?? 0) + 1;
+                $request_number = sprintf("REQ%d-%03d", $year, $next_num);
+
                 // Prepare data for storage
                 $form_data = [
                     'requestor_name' => $_POST['requestor_name'],
                     'business_unit' => $_POST['business_unit'],
-                    'access_request_number' => $_POST['access_request_number'],
+                    'access_request_number' => $request_number,
                     'department' => $_POST['department'],
                     'email' => $_POST['email'],
                     'contact_number' => $_POST['contact_number'],
@@ -129,9 +138,9 @@ try {
                 $headers .= "X-Mailer: PHP/" . phpversion();
 
                 @mail($admin_email, $subject, $message, $headers);
-
+                
                 $response['success'] = true;
-                $response['message'] = 'Your access request has been submitted successfully. You will be notified once it has been reviewed.';
+                $response['message'] = 'Your access request has been submitted successfully, Please check your email for more details.';
             } catch (PDOException $e) {
                 error_log("Database Error in submit.php: " . $e->getMessage());
                 $response['message'] = 'Database Error: Unable to save your request. Please try again later.';

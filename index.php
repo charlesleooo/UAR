@@ -57,7 +57,9 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact No.: *</label>
-                    <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    pattern="\d{11}" maxlength="11" minlength="11"
+                    title="Phone number must be exactly 11 digits long">
                 </div>
             </div>
 
