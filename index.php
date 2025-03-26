@@ -76,7 +76,7 @@
             </div>
 
              <!-- Access Types -->
-             <div class="space-y-4">
+             <div class="border-2 border-black p-4 rounded-md space-y-4">
                 <h2 class="text-lg font-medium">Access Type:</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <label class="flex items-center space-x-2">
@@ -207,7 +207,7 @@
             </div>
 
             <!-- Access Duration -->
-            <div class="space-y-4">
+            <div class="border-2 border-black p-4 rounded-md space-y-4">
                 <h2 class="text-lg font-medium">Access Duration:</h2>
                 <div class="space-y-4">
                     <label class="flex items-center space-x-2">
