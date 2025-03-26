@@ -29,7 +29,7 @@
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-10">
             <div class="flex items-center mb-6">
             <img src="logo.png" alt="Logo" class="logo mr-4"> <!-- Replace with your logo path -->
-            <h1 class="text-4xl font-bold ml-20">USER ACCESS REQUEST FORM</h1>
+            <h1 class="text-5xl font-bold ml-20">USER ACCESS REQUEST FORM</h1>
         </div>
         
         <form action="submit.php" method="POST" id="accessRequestForm" class="space-y-6">
