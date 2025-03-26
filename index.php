@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Access Request Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"> <!-- Include Poppins font -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body {
+            background-image: url('bg2.jpg'); /* Replace with your PNG path */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to the body */
+        }
         input[type="date"]::-webkit-calendar-picker-indicator {
             cursor: pointer;
             padding: 5px;
         }
+        /* Minimize logo size */
+        .logo {
+            width: 350px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
     </style>
 </head>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h1 class="text-2xl font-bold text-center mb-6">USER ACCESS REQUEST FORM</h1>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-10">
+            <div class="flex items-center mb-6">
+            <img src="logo.png" alt="Logo" class="logo mr-4"> <!-- Replace with your logo path -->
+            <h1 class="text-4xl font-bold ml-20">USER ACCESS REQUEST FORM</h1>
+        </div>
         
         <form action="submit.php" method="POST" id="accessRequestForm" class="space-y-6">
-            <div class="bg-yellow-50 p-3 rounded mb-4">
-                <p class="text-sm text-yellow-700">Note: Fields with * are REQUIRED to be filled up.</p>
-            </div>
-
             <!-- Requestor Information -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -63,10 +75,10 @@
                 </div>
             </div>
 
-            <!-- Access Types -->
-            <div class="space-y-4">
+             <!-- Access Types -->
+             <div class="space-y-4">
                 <h2 class="text-lg font-medium">Access Type: *</h2>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <label class="flex items-center space-x-2">
                         <input type="radio" name="access_type" value="system_application" class="text-blue-600 w-5 h-5" required>
                         <span>System Application</span>
