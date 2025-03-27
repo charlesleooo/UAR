@@ -37,7 +37,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Requestor Name: *</label>
-                    <input type="text" name="requestor_name" placeholder="Enter your name"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="text" name="requestor_name" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Business Unit: *</label>
@@ -55,39 +55,23 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">No. of Access Request:</label>
-                    <input type="number" 
-                        name="access_request_number" 
-                        placeholder="Enter number from 1-5 only" 
-                        min="1" 
-                        max="5"
-                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        title="Please enter a number between 1 to 5 only">
+                    <input type="number" name="access_request_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Department:</label>
-                    <select name="department" 
-                        required 
-                        class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <select name="department" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="">Select Department</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email Add:</label>
-                    <input type="email" 
-                        name="email" 
-                        placeholder="example@gmail.com"
-                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="email" name="email" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact No.:</label>
-                    <input type="tel" 
-                        name="contact_number" 
-                        placeholder="09XX-XXX-XXXX" 
-                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        pattern="\d{11}" 
-                        maxlength="11" 
-                        minlength="11"
-                        title="Phone number must be exactly 11 digits long">
+                    <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    pattern="\d{11}" maxlength="11" minlength="11"
+                    title="Phone number must be exactly 11 digits long">
                 </div>
             </div>
 
@@ -96,63 +80,63 @@
                 <h2 class="text-lg font-medium">Access Type:</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="system_application" class="text-blue-600 w-5 h-5" required>
+                        <input type="radio" name="access_type" value="System Application" class="text-blue-600 w-5 h-5" required>
                         <span>System Application</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="pc_access_network" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="PC Access - Network" class="text-blue-600 w-5 h-5">
                         <span>PC Access - Network</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="email_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Email Access" class="text-blue-600 w-5 h-5">
                         <span>Email Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="server_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Server Access" class="text-blue-600 w-5 h-5">
                         <span>Server Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="internet_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Internet Access" class="text-blue-600 w-5 h-5">
                         <span>Internet Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="printer_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Printer Access" class="text-blue-600 w-5 h-5">
                         <span>Printer Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="active_directory" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Active Directory Access (MS ENTRA ID)" class="text-blue-600 w-5 h-5">
                         <span>Active Directory Access (MS ENTRA ID)</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="firewall_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Firewall Access" class="text-blue-600 w-5 h-5">
                         <span>Firewall Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="wifi_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Wi-Fi/Access Point Access" class="text-blue-600 w-5 h-5">
                         <span>Wi-Fi/Access Point Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="tna_biometric" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="TNA Biometric Device Access" class="text-blue-600 w-5 h-5">
                         <span>TNA Biometric Device Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="usb_pc_port" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="USB/PC-port Access" class="text-blue-600 w-5 h-5">
                         <span>USB/PC-port Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="cctv_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="CCTV Access" class="text-blue-600 w-5 h-5">
                         <span>CCTV Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="pc_access_local" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="PC Access - Local" class="text-blue-600 w-5 h-5">
                         <span>PC Access - Local</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="vpn_access" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="VPN Access" class="text-blue-600 w-5 h-5">
                         <span>VPN Access</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="access_type" value="offsite_storage" class="text-blue-600 w-5 h-5">
+                        <input type="radio" name="access_type" value="Offsite Storage Facility Access" class="text-blue-600 w-5 h-5">
                         <span>Offsite Storage Facility Access</span>
                     </label>
                 </div>
@@ -163,59 +147,51 @@
                 <h2 class="text-lg font-medium">System/Application Type:</h2>
                 <div class="grid grid-cols-4 gap-4">
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="canvasing_system" class="rounded text-blue-600 w-5 h-5">
-                        <span>Canvasing System</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="erp_nav" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="ERP/NAV" class="rounded text-blue-600 w-5 h-5">
                         <span>ERP/NAV</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="legacy_payroll" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Legacy Payroll" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Payroll</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="hris" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="HRIS" class="rounded text-blue-600 w-5 h-5">
                         <span>HRIS</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="legacy_purchasing" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Legacy Purchasing" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Purchasing</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="piece_rate_payroll" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Piece Rate Payroll System" class="rounded text-blue-600 w-5 h-5">
                         <span>Piece Rate Payroll System</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="legacy_inventory" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Legacy Inventory" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Inventory</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="fresh_chilled" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Fresh Chilled Receiving System" class="rounded text-blue-600 w-5 h-5">
                         <span>Fresh Chilled Receiving System</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="legacy_vouchering" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Legacy Vouchering" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Vouchering</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="quickbooks" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Quickbooks" class="rounded text-blue-600 w-5 h-5">
                         <span>Quickbooks</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="legacy_ledger" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Legacy Ledger System" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Ledger System</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="memorandum_receipt" class="rounded text-blue-600 w-5 h-5">
-                        <span>Memorandum Receipt</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="zankpos" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="ZankPOS" class="rounded text-blue-600 w-5 h-5">
                         <span>ZankPOS</span>
                     </label>
                     <div class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="other" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="Other" class="rounded text-blue-600 w-5 h-5">
                         <span>Other (specify):</span>
                         <input type="text" name="other_system_type" class="ml-2 w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500" disabled>
                     </div>
@@ -259,7 +235,7 @@
             <!-- Justification -->
             <div>
                 <label class="block text-sm font-medium text-black-850">Justification for Access Request:</label>
-                <textarea name="justification" placeholder="Write your reason for access" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
+                <textarea name="justification" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
             </div>
 
             <div class="flex justify-end space-x-4">
@@ -286,35 +262,35 @@
             </div>
         </div>
     </div>
-    <!---------------------------------------------------------------------SCRIPT------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const businessUnitDepartments = {
                 'AAC': [
-                    'AFFILIATES',
-                    'APP',
-                    'CATFISH GROW-OUT',
-                    'ENGINEERING',
-                    'FINANCE',
-                    'GENSAN PROCESSING PLANT (GPP)',
-                    'GROW OUT',
-                    'HUMAN RESOURCE & ADMIN',
-                    'INFORMATION TECHNOLOGY (IT)',
-                    'LAND BASED',
-                    'MANUFACTURING',
-                    'MARKETING',
-                    'MATERIALS MANAGEMENT',
                     'OFFICE OF THE VP-OPERATIONS',
-                    'PPP-SLICING/OTHER PROCESSING',
-                    'REGIONAL SALES',
-                    'RPP',
-                    'SALES & MARKETING',
-                    'SEA CAGE',
-                    'SPECIAL IMPORTATION/TRADING',
+                    'INFORMATION TECHNOLOGY (IT)',
+                    'FINANCE',
+                    'ENGINEERING',
+                    'HUMAN RESOURCE & ADMIN',
+                    'MATERIALS MANAGEMENT',
                     'TECHNICAL SERVICES',
+                    'REGIONAL SALES',
+                    'SALES & MARKETING',
+                    'LAND BASED',
+                    'SEA CAGE',
+                    'GROW OUT',
+                    'APP',
+                    'RPP',
+                    'GENSAN PROCESSING PLANT (GPP)',
+                    'PPP-SLICING/OTHER PROCESSING',
+                    'MANUFACTURING',
+                    'VAP',
+                    'MARKETING',
+                    'AFFILIATES',
                     'TH - CLEARING',
                     'TILAPIA HATCHERY (TH)',
-                    'VAP',
+                    'CATFISH GROW-OUT',
+                    'SPECIAL IMPORTATION/TRADING'
                 ],
                 'ALDEV': [
                     'ALD Cattle',
@@ -461,7 +437,7 @@
             accessTypeInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     resetFormSections();
-                    if (this.value === 'system_application') {
+                    if (this.value === 'System Application') {
                         systemApplicationSection.classList.remove('hidden');
                     } else if (this.value === 'role_access') {
                         roleAccessSection.classList.remove('hidden');
@@ -551,14 +527,6 @@
                 document.getElementById('successModal').classList.add('hidden');
             }
         });
-        //number of access validation
-        function validateNumber(input) {
-            const value = parseInt(input.value);
-            if (value < 1 || value > 5) {
-                alert('Please enter a number between 1 and 5.');
-                input.value = '';
-            }
-            }
     </script>
 </body>
 </html>

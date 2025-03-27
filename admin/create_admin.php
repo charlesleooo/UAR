@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 
-$username = 'admin';
-$password = 'admin123';
+$username = 'Charles';
+$password = 'palomares2003';
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 try {
