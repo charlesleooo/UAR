@@ -147,6 +147,10 @@
                 <h2 class="text-lg font-medium">System/Application Type:</h2>
                 <div class="grid grid-cols-4 gap-4">
                     <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="system_type[]" value="canvasing_system" class="rounded text-blue-600 w-5 h-5">
+                        <span>Canvasing System</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
                         <input type="checkbox" name="system_type[]" value="erp_nav" class="rounded text-blue-600 w-5 h-5">
                         <span>ERP/NAV</span>
                     </label>
@@ -185,6 +189,10 @@
                     <label class="flex items-center space-x-2">
                         <input type="checkbox" name="system_type[]" value="legacy_ledger" class="rounded text-blue-600 w-5 h-5">
                         <span>Legacy Ledger System</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="system_type[]" value="memorandum_receipt" class="rounded text-blue-600 w-5 h-5">
+                        <span>Memorandum Receipt</span>
                     </label>
                     <label class="flex items-center space-x-2">
                         <input type="checkbox" name="system_type[]" value="zankpos" class="rounded text-blue-600 w-5 h-5">
@@ -267,30 +275,30 @@
         document.addEventListener('DOMContentLoaded', function() {
             const businessUnitDepartments = {
                 'AAC': [
-                    'OFFICE OF THE VP-OPERATIONS',
-                    'INFORMATION TECHNOLOGY (IT)',
-                    'FINANCE',
-                    'ENGINEERING',
-                    'HUMAN RESOURCE & ADMIN',
-                    'MATERIALS MANAGEMENT',
-                    'TECHNICAL SERVICES',
-                    'REGIONAL SALES',
-                    'SALES & MARKETING',
-                    'LAND BASED',
-                    'SEA CAGE',
-                    'GROW OUT',
-                    'APP',
-                    'RPP',
-                    'GENSAN PROCESSING PLANT (GPP)',
-                    'PPP-SLICING/OTHER PROCESSING',
-                    'MANUFACTURING',
-                    'VAP',
-                    'MARKETING',
                     'AFFILIATES',
+                    'APP',
+                    'CATFISH GROW-OUT',
+                    'ENGINEERING',
+                    'FINANCE',
+                    'GENSAN PROCESSING PLANT (GPP)',
+                    'GROW OUT',
+                    'HUMAN RESOURCE & ADMIN',
+                    'INFORMATION TECHNOLOGY (IT)',
+                    'LAND BASED',
+                    'MANUFACTURING',
+                    'MARKETING',
+                    'MATERIALS MANAGEMENT',
+                    'OFFICE OF THE VP-OPERATIONS',
+                    'PPP-SLICING/OTHER PROCESSING',
+                    'REGIONAL SALES',
+                    'RPP',
+                    'SALES & MARKETING',
+                    'SEA CAGE',
+                    'SPECIAL IMPORTATION/TRADING',
+                    'TECHNICAL SERVICES',
                     'TH - CLEARING',
                     'TILAPIA HATCHERY (TH)',
-                    'CATFISH GROW-OUT',
-                    'SPECIAL IMPORTATION/TRADING'
+                    'VAP',
                 ],
                 'ALDEV': [
                     'ALD Cattle',
