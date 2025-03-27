@@ -65,9 +65,9 @@ try {
                         <i class='bx bxs-dashboard text-xl'></i>
                         <span class="ml-3">Dashboard</span>
                     </a>
-                    <a href="reports.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
-                        <i class='bx bxs-report text-xl'></i>
-                        <span class="ml-3">Reports Analysis</span>
+                    <a href="Analytics.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
+                        <i class='bx bx-line-chart text-xl'></i>
+                        <span class="ml-3">Analytics</span>
                     </a>
                     <a href="requests.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
                         <i class='bx bxs-message-square-detail text-xl'></i>

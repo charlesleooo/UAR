@@ -8,86 +8,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-// Fetch dashboard data
-function getDashboardStats($pdo) {
-    // Get total requests (combining current and history)
-    $stmt = $pdo->query("SELECT COUNT(*) FROM (
-        SELECT id FROM access_requests 
-        UNION ALL 
-        SELECT history_id FROM approval_history
-    ) as total");
-    $totalRequests = $stmt->fetchColumn();
-    
-    // Get total approved requests
-    $stmt = $pdo->query("SELECT COUNT(*) FROM approval_history WHERE action = 'approved'");
-    $totalApproved = $stmt->fetchColumn();
-    
-    // Get total declined requests
-    $stmt = $pdo->query("SELECT COUNT(*) FROM approval_history WHERE action = 'rejected'");
-    $totalDeclined = $stmt->fetchColumn();
-    
-    // Calculate approval rate
-    $approvalRate = $totalRequests > 0 ? round(($totalApproved / $totalRequests) * 100, 2) : 0;
-    
-    // Calculate decline rate
-    $declineRate = $totalRequests > 0 ? round(($totalDeclined / $totalRequests) * 100, 2) : 0;
-    
-    return [
-        [
-            'title' => 'Total Requests',
-            'value' => number_format($totalRequests),
-            'change' => '',
-            'color' => 'text-amber-500'
-        ],
-        [
-            'title' => 'Approved Requests',
-            'value' => number_format($totalApproved),
-            'change' => '',
-            'color' => 'text-emerald-500'
-        ],
-        [
-            'title' => 'Approval Rate',
-            'value' => $approvalRate . '%',
-            'change' => '',
-            'color' => 'text-blue-500'
-        ],
-        [
-            'title' => 'Decline Rate',
-            'value' => $declineRate . '%',
-            'change' => '',
-            'color' => 'text-red-500'
-        ]
-    ];
-}
-
-// Fetch recent activity
-function getRecentActivity($pdo) {
-    $stmt = $pdo->query("(SELECT 
-            access_request_number,
-            requestor_name as username,
-            access_type as report_type,
-            status,
-            submission_date as created_at
-        FROM access_requests
-        ORDER BY submission_date DESC
-        LIMIT 5)
-        UNION ALL
-        (SELECT 
-            access_request_number,
-            requestor_name as username,
-            access_type as report_type,
-            action as status,
-            created_at
-        FROM approval_history
-        ORDER BY created_at DESC
-        LIMIT 5)
-        ORDER BY created_at DESC
-        LIMIT 5");
-    return $stmt->fetchAll();
-}
-
-$dashboardStats = getDashboardStats($pdo);
-$recentActivity = getRecentActivity($pdo);
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +20,6 @@ $recentActivity = getRecentActivity($pdo);
     <!-- External CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- Tailwind Configuration -->
     <script>
@@ -133,9 +52,9 @@ $recentActivity = getRecentActivity($pdo);
                         <i class='bx bxs-dashboard text-xl'></i>
                         <span class="ml-3">Dashboard</span>
                     </a>
-                    <a href="reports.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
-                        <i class='bx bxs-report text-xl'></i>
-                        <span class="ml-3">Reports Analysis</span>
+                    <a href="analytics.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
+                        <i class='bx bx-line-chart text-xl'></i>
+                        <span class="ml-3">Analytics</span>
                     </a>
                     <a href="requests.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
                         <i class='bx bxs-message-square-detail text-xl'></i>
@@ -184,151 +103,66 @@ $recentActivity = getRecentActivity($pdo);
 
             <!-- Content Area -->
             <div class="p-8">
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <?php foreach ($dashboardStats as $stat): ?>
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-gray-500 text-sm"><?php echo $stat['title']; ?></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Analytics Card -->
+                    <a href="analytics.php" class="block bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-semibold text-gray-800">Analytics</h3>
+                                    <p class="text-gray-600 mt-1">View system analytics</p>
+                                </div>
+                                <div class="text-primary">
+                                    <i class='bx bx-line-chart text-3xl'></i>
+                                </div>
                             </div>
-                            <p class="text-2xl font-semibold <?php echo $stat['color']; ?>"><?php echo $stat['value']; ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- Charts Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                    <!-- Request Overview Chart -->
-                    <div class="bg-white rounded-xl shadow-sm p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-gray-800 font-semibold">Request Overview</h3>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 text-sm bg-blue-50 text-primary rounded">Month</button>
-                                <button class="px-3 py-1 text-sm text-gray-500 hover:bg-gray-50 rounded">Week</button>
+                            <div class="mt-4 text-primary flex items-center justify-between">
+                                <span class="text-sm">More info</span>
+                                <i class='bx bx-right-arrow-alt'></i>
                             </div>
                         </div>
-                        <canvas id="visitorChart" height="300"></canvas>
-                    </div>
+                    </a>
 
-                    <!-- Request Statistics Chart -->
-                    <div class="bg-white rounded-xl shadow-sm p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <h3 class="text-gray-800 font-semibold">Request Statistics</h3>
-                                <p class="text-gray-500 text-sm">This Week's Statistics</p>
+                    <!-- Requests Card -->
+                    <a href="requests.php" class="block bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-semibold text-gray-800">Requests</h3>
+                                    <p class="text-gray-600 mt-1">Manage access requests</p>
+                                </div>
+                                <div class="text-primary">
+                                    <i class='bx bxs-message-square-detail text-3xl'></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-primary flex items-center justify-between">
+                                <span class="text-sm">More info</span>
+                                <i class='bx bx-right-arrow-alt'></i>
                             </div>
                         </div>
-                        <canvas id="incomeChart" height="300"></canvas>
-                    </div>
-                </div>
+                    </a>
 
-                <!-- Recent Activity Table -->
-                <div class="bg-white rounded-xl shadow-sm">
-                    <div class="border-b border-gray-100 px-6 py-4">
-                        <h5 class="text-xl font-semibold text-gray-800">Recent Activity</h5>
-                    </div>
-                    <div class="p-6">
-                        <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead>
-                                    <tr class="bg-gray-50">
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Request Number</th>
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">User</th>
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Type</th>
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Status</th>
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100">
-                                    <?php foreach ($recentActivity as $activity): 
-                                        $statusColor = match($activity['status']) {
-                                            'approved' => 'bg-emerald-100 text-emerald-800',
-                                            'pending' => 'bg-amber-100 text-amber-800',
-                                            default => 'bg-red-100 text-red-800'
-                                        };
-                                    ?>
-                                        <tr class="hover:bg-gray-50 transition-colors">
-                                            <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['access_request_number']); ?></td>
-                                            <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['username']); ?></td>
-                                            <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['report_type']); ?></td>
-                                            <td class="px-6 py-4 text-sm">
-                                                <span class="px-3 py-1 rounded-full <?php echo $statusColor; ?>">
-                                                    <?php echo htmlspecialchars($activity['status']); ?>
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm text-gray-600">
-                                                <?php echo date('M j, Y', strtotime($activity['created_at'])); ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                    <!-- Approval History Card -->
+                    <a href="approval_history.php" class="block bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-semibold text-gray-800">Approval History</h3>
+                                    <p class="text-gray-600 mt-1">View past approvals</p>
+                                </div>
+                                <div class="text-primary">
+                                    <i class='bx bx-history text-3xl'></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-primary flex items-center justify-between">
+                                <span class="text-sm">More info</span>
+                                <i class='bx bx-right-arrow-alt'></i>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Charts Initialization -->
-    <script>
-        // Request Overview Chart
-        const visitorChartCtx = document.getElementById('visitorChart').getContext('2d');
-        new Chart(visitorChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [{
-                    label: 'Page Views',
-                    data: [30, 40, 35, 50, 49, 60, 70],
-                    borderColor: 'rgb(99, 102, 241)',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                },
-                {
-                    label: 'Sessions',
-                    data: [20, 25, 30, 35, 40, 35, 45],
-                    borderColor: 'rgb(74, 222, 128)',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' }
-                },
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-
-        // Request Statistics Chart
-        const incomeChartCtx = document.getElementById('incomeChart').getContext('2d');
-        new Chart(incomeChartCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                datasets: [{
-                    label: 'Requests',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: 'rgb(99, 102, 241)',
-                    borderRadius: 5,
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' }
-                },
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    </script>
 </body>
 </html>

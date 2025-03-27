@@ -37,7 +37,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Requestor Name: *</label>
-                    <input type="text" name="requestor_name" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="text" name="requestor_name" placeholder="Enter your name"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Business Unit: *</label>
@@ -55,23 +55,39 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">No. of Access Request:</label>
-                    <input type="number" name="access_request_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="number" 
+                        name="access_request_number" 
+                        placeholder="Enter number from 1-5 only" 
+                        min="1" 
+                        max="5"
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        title="Please enter a number between 1 to 5 only">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Department:</label>
-                    <select name="department" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <select name="department" 
+                        required 
+                        class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="">Select Department</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email Add:</label>
-                    <input type="email" name="email" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="email" 
+                        name="email" 
+                        placeholder="example@gmail.com"
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact No.:</label>
-                    <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    pattern="\d{11}" maxlength="11" minlength="11"
-                    title="Phone number must be exactly 11 digits long">
+                    <input type="tel" 
+                        name="contact_number" 
+                        placeholder="09XX-XXX-XXXX" 
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        pattern="\d{11}" 
+                        maxlength="11" 
+                        minlength="11"
+                        title="Phone number must be exactly 11 digits long">
                 </div>
             </div>
 
@@ -147,6 +163,10 @@
                 <h2 class="text-lg font-medium">System/Application Type:</h2>
                 <div class="grid grid-cols-4 gap-4">
                     <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="system_type[]" value="Canvasing System" class="rounded text-blue-600 w-5 h-5">
+                        <span>Canvasing System</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
                         <input type="checkbox" name="system_type[]" value="ERP/NAV" class="rounded text-blue-600 w-5 h-5">
                         <span>ERP/NAV</span>
                     </label>
@@ -187,11 +207,15 @@
                         <span>Legacy Ledger System</span>
                     </label>
                     <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="system_type[]" value="Memorandum Receipt" class="rounded text-blue-600 w-5 h-5">
+                        <span>Memorandum Receipt</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
                         <input type="checkbox" name="system_type[]" value="ZankPOS" class="rounded text-blue-600 w-5 h-5">
                         <span>ZankPOS</span>
                     </label>
                     <div class="flex items-center space-x-2">
-                        <input type="checkbox" name="system_type[]" value="Other" class="rounded text-blue-600 w-5 h-5">
+                        <input type="checkbox" name="system_type[]" value="other" class="rounded text-blue-600 w-5 h-5">
                         <span>Other (specify):</span>
                         <input type="text" name="other_system_type" class="ml-2 w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500" disabled>
                     </div>
@@ -235,7 +259,7 @@
             <!-- Justification -->
             <div>
                 <label class="block text-sm font-medium text-black-850">Justification for Access Request:</label>
-                <textarea name="justification" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
+                <textarea name="justification" placeholder="Write your reason for access" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
             </div>
 
             <div class="flex justify-end space-x-4">
@@ -262,35 +286,35 @@
             </div>
         </div>
     </div>
-
+    <!---------------------------------------------------------------------SCRIPT------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const businessUnitDepartments = {
                 'AAC': [
-                    'OFFICE OF THE VP-OPERATIONS',
-                    'INFORMATION TECHNOLOGY (IT)',
-                    'FINANCE',
-                    'ENGINEERING',
-                    'HUMAN RESOURCE & ADMIN',
-                    'MATERIALS MANAGEMENT',
-                    'TECHNICAL SERVICES',
-                    'REGIONAL SALES',
-                    'SALES & MARKETING',
-                    'LAND BASED',
-                    'SEA CAGE',
-                    'GROW OUT',
-                    'APP',
-                    'RPP',
-                    'GENSAN PROCESSING PLANT (GPP)',
-                    'PPP-SLICING/OTHER PROCESSING',
-                    'MANUFACTURING',
-                    'VAP',
-                    'MARKETING',
                     'AFFILIATES',
+                    'APP',
+                    'CATFISH GROW-OUT',
+                    'ENGINEERING',
+                    'FINANCE',
+                    'GENSAN PROCESSING PLANT (GPP)',
+                    'GROW OUT',
+                    'HUMAN RESOURCE & ADMIN',
+                    'INFORMATION TECHNOLOGY (IT)',
+                    'LAND BASED',
+                    'MANUFACTURING',
+                    'MARKETING',
+                    'MATERIALS MANAGEMENT',
+                    'OFFICE OF THE VP-OPERATIONS',
+                    'PPP-SLICING/OTHER PROCESSING',
+                    'REGIONAL SALES',
+                    'RPP',
+                    'SALES & MARKETING',
+                    'SEA CAGE',
+                    'SPECIAL IMPORTATION/TRADING',
+                    'TECHNICAL SERVICES',
                     'TH - CLEARING',
                     'TILAPIA HATCHERY (TH)',
-                    'CATFISH GROW-OUT',
-                    'SPECIAL IMPORTATION/TRADING'
+                    'VAP',
                 ],
                 'ALDEV': [
                     'ALD Cattle',
@@ -437,7 +461,7 @@
             accessTypeInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     resetFormSections();
-                    if (this.value === 'System Application') {
+                    if (this.value === 'system_application') {
                         systemApplicationSection.classList.remove('hidden');
                     } else if (this.value === 'role_access') {
                         roleAccessSection.classList.remove('hidden');
@@ -527,6 +551,14 @@
                 document.getElementById('successModal').classList.add('hidden');
             }
         });
+        //number of access validation
+        function validateNumber(input) {
+            const value = parseInt(input.value);
+            if (value < 1 || value > 5) {
+                alert('Please enter a number between 1 and 5.');
+                input.value = '';
+            }
+            }
     </script>
 </body>
 </html>
