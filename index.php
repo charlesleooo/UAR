@@ -55,23 +55,39 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">No. of Access Request:</label>
-                    <input type="number" name="access_request_number" placeholder="example: 1"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="number" 
+                        name="access_request_number" 
+                        placeholder="Enter number from 1-5 only" 
+                        min="1" 
+                        max="5"
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        title="Please enter a number between 1 to 5 only">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Department:</label>
-                    <select name="department" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <select name="department" 
+                        required 
+                        class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         <option value="">Select Department</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email Add:</label>
-                    <input type="email" name="email" placeholder="example@gmail.com"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="email" 
+                        name="email" 
+                        placeholder="example@gmail.com"
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact No.:</label>
-                    <input type="tel" name="contact_number" placeholder="09XX-XXX-XXXX" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    pattern="\d{11}" maxlength="11" minlength="11"
-                    title="Phone number must be exactly 11 digits long">
+                    <input type="tel" 
+                        name="contact_number" 
+                        placeholder="09XX-XXX-XXXX" 
+                        required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        pattern="\d{11}" 
+                        maxlength="11" 
+                        minlength="11"
+                        title="Phone number must be exactly 11 digits long">
                 </div>
             </div>
 
@@ -270,7 +286,7 @@
             </div>
         </div>
     </div>
-
+    <!---------------------------------------------------------------------SCRIPT------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const businessUnitDepartments = {
@@ -535,6 +551,14 @@
                 document.getElementById('successModal').classList.add('hidden');
             }
         });
+        //number of access validation
+        function validateNumber(input) {
+            const value = parseInt(input.value);
+            if (value < 1 || value > 5) {
+                alert('Please enter a number between 1 and 5.');
+                input.value = '';
+            }
+            }
     </script>
 </body>
 </html>
