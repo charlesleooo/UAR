@@ -37,7 +37,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Requestor Name: *</label>
-                    <input type="text" name="requestor_name" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="text" name="requestor_name" placeholder="Enter your name"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Business Unit: *</label>
@@ -55,7 +55,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">No. of Access Request:</label>
-                    <input type="number" name="access_request_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="number" name="access_request_number" placeholder="example: 1"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Department:</label>
@@ -65,11 +65,11 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email Add:</label>
-                    <input type="email" name="email" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <input type="email" name="email" placeholder="example@gmail.com"required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact No.:</label>
-                    <input type="tel" name="contact_number" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    <input type="tel" name="contact_number" placeholder="09XX-XXX-XXXX" required class="mt-1 block w-full h-12 text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     pattern="\d{11}" maxlength="11" minlength="11"
                     title="Phone number must be exactly 11 digits long">
                 </div>
@@ -243,7 +243,7 @@
             <!-- Justification -->
             <div>
                 <label class="block text-sm font-medium text-black-850">Justification for Access Request:</label>
-                <textarea name="justification" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
+                <textarea name="justification" placeholder="Write your reason for access" required rows="4" class="resize-none mt-1 block w-full text-lg rounded-md border-2 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500 p-4"></textarea>
             </div>
 
             <div class="flex justify-end space-x-4">
