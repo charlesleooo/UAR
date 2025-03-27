@@ -10,16 +10,20 @@ if (!isset($_SESSION['admin_id'])) {
 
 // Fetch dashboard data
 function getDashboardStats($pdo) {
-    // Get total requests
-    $stmt = $pdo->query("SELECT COUNT(*) FROM requests");
+    // Get total requests (combining current and history)
+    $stmt = $pdo->query("SELECT COUNT(*) FROM (
+        SELECT id FROM access_requests 
+        UNION ALL 
+        SELECT history_id FROM approval_history
+    ) as total");
     $totalRequests = $stmt->fetchColumn();
     
     // Get total approved requests
-    $stmt = $pdo->query("SELECT COUNT(*) FROM requests WHERE status = 'approved'");
+    $stmt = $pdo->query("SELECT COUNT(*) FROM approval_history WHERE action = 'approved'");
     $totalApproved = $stmt->fetchColumn();
     
     // Get total declined requests
-    $stmt = $pdo->query("SELECT COUNT(*) FROM requests WHERE status = 'declined'");
+    $stmt = $pdo->query("SELECT COUNT(*) FROM approval_history WHERE action = 'rejected'");
     $totalDeclined = $stmt->fetchColumn();
     
     // Calculate approval rate
@@ -32,25 +36,25 @@ function getDashboardStats($pdo) {
         [
             'title' => 'Total Requests',
             'value' => number_format($totalRequests),
-            'change' => '+59.3%',
+            'change' => '',
             'color' => 'text-amber-500'
         ],
         [
             'title' => 'Approved Requests',
             'value' => number_format($totalApproved),
-            'change' => '+27.4%',
+            'change' => '',
             'color' => 'text-emerald-500'
         ],
         [
             'title' => 'Approval Rate',
             'value' => $approvalRate . '%',
-            'change' => '+27.4%',
+            'change' => '',
             'color' => 'text-blue-500'
         ],
         [
             'title' => 'Decline Rate',
             'value' => $declineRate . '%',
-            'change' => '+12.8%',
+            'change' => '',
             'color' => 'text-red-500'
         ]
     ];
@@ -58,11 +62,27 @@ function getDashboardStats($pdo) {
 
 // Fetch recent activity
 function getRecentActivity($pdo) {
-    $stmt = $pdo->query("SELECT r.*, au.username 
-                        FROM requests r 
-                        LEFT JOIN admin_users au ON r.user_id = au.id 
-                        ORDER BY r.created_at DESC 
-                        LIMIT 5");
+    $stmt = $pdo->query("(SELECT 
+            access_request_number,
+            requestor_name as username,
+            access_type as report_type,
+            status,
+            submission_date as created_at
+        FROM access_requests
+        ORDER BY submission_date DESC
+        LIMIT 5)
+        UNION ALL
+        (SELECT 
+            access_request_number,
+            requestor_name as username,
+            access_type as report_type,
+            action as status,
+            created_at
+        FROM approval_history
+        ORDER BY created_at DESC
+        LIMIT 5)
+        ORDER BY created_at DESC
+        LIMIT 5");
     return $stmt->fetchAll();
 }
 
@@ -121,7 +141,7 @@ $recentActivity = getRecentActivity($pdo);
                         <i class='bx bxs-message-square-detail text-xl'></i>
                         <span class="ml-3">Requests</span>
                     </a>
-                    <a href="approval-history.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
+                    <a href="approval_history.php" class="flex items-center px-4 py-3 text-gray-600 rounded-lg transition-all hover:bg-gray-100">
                         <i class='bx bx-history text-xl'></i>
                         <span class="ml-3">Approval History</span>
                     </a>
@@ -170,9 +190,8 @@ $recentActivity = getRecentActivity($pdo);
                         <div class="bg-white rounded-xl shadow-sm p-6">
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="text-gray-500 text-sm"><?php echo $stat['title']; ?></h3>
-                                <span class="<?php echo $stat['color']; ?> text-xs"><?php echo $stat['change']; ?></span>
                             </div>
-                            <p class="text-2xl font-semibold text-gray-800"><?php echo $stat['value']; ?></p>
+                            <p class="text-2xl font-semibold <?php echo $stat['color']; ?>"><?php echo $stat['value']; ?></p>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -213,7 +232,7 @@ $recentActivity = getRecentActivity($pdo);
                             <table class="w-full">
                                 <thead>
                                     <tr class="bg-gray-50">
-                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Request ID</th>
+                                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Request Number</th>
                                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">User</th>
                                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Type</th>
                                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Status</th>
@@ -229,7 +248,7 @@ $recentActivity = getRecentActivity($pdo);
                                         };
                                     ?>
                                         <tr class="hover:bg-gray-50 transition-colors">
-                                            <td class="px-6 py-4 text-sm text-gray-600">#<?php echo htmlspecialchars($activity['request_id']); ?></td>
+                                            <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['access_request_number']); ?></td>
                                             <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['username']); ?></td>
                                             <td class="px-6 py-4 text-sm text-gray-600"><?php echo htmlspecialchars($activity['report_type']); ?></td>
                                             <td class="px-6 py-4 text-sm">
